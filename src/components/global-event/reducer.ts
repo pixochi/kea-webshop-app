@@ -1,6 +1,6 @@
 import {Record} from 'immutable';
 
-import { IReduxAction } from '../../redux/create-actions';
+import { ReduxAction } from '../../redux/create-actions';
 
 import {updateError, updateSuccess, dismissEvent} from './actions';
 import { GlobaEventType } from './constants';
@@ -17,7 +17,7 @@ export class GlobalEventState extends Record<IGlobalEvent>({
   sticky: false,
 }) {}
 
-export const globalEventReducer = (state = new GlobalEventState(), action: IReduxAction) => {
+export const globalEventReducer = (state = new GlobalEventState(), action: ReduxAction) => {
   switch (action.type) {
     case updateError.type:
     case updateSuccess.type:

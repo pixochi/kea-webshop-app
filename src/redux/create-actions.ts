@@ -1,12 +1,12 @@
 import { store } from './store';
 
-export interface IReduxAction<T = any> {
+export interface ReduxAction<T = any> {
   type: string;
   payload: T;
 }
 
 interface IAction<T = {}> {
-  action: (...args: T[]) => IReduxAction<T>;
+  action: (...args: T[]) => ReduxAction<T>;
   type: string;
   dispatch: (...args: T[]) => void;
 }
