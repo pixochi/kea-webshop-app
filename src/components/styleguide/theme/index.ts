@@ -4,7 +4,7 @@ interface IBorderColors {
   focus: string;
 }
 
-export interface ITheme {
+export interface Theme {
   primary: string;
   primaryDark: string;
   secondary: string;
@@ -29,7 +29,7 @@ export interface ITheme {
   inactive: string;
 }
 
-export const Theme: ITheme = {
+export const Theme: Theme = {
   primary: '#744050',
   primaryDark: '#744050',
   secondary: '#edff3a',

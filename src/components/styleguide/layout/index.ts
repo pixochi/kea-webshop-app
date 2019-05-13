@@ -9,7 +9,7 @@ import {
 
 import styled from '../../styleguide';
 import {Spacing} from '../../styleguide/spacing';
-import { ITheme } from '../../styleguide/theme';
+import { Theme } from '../../styleguide/theme';
 import { DOMAttributes } from 'react';
 
 export interface IBaseLayoutProps {
@@ -35,7 +35,7 @@ export interface IBaseLayoutProps {
   grow?: StandardLonghandProperties['flexGrow'];
 }
 
-type BasePropsWithTheme<T = {}> = ThemedStyledProps<IBaseLayoutProps & DOMAttributes<any> & T, ITheme>;
+type BasePropsWithTheme<T = {}> = ThemedStyledProps<IBaseLayoutProps & DOMAttributes<any> & T, Theme>;
 
 export const Base = styled.div<BasePropsWithTheme>`
   margin-top: ${props => props.marginTop || props.marginVertical || props.margin};

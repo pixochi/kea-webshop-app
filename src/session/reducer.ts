@@ -1,6 +1,6 @@
 import { Record } from 'immutable';
 
-import { IReduxAction } from '../redux/create-actions';
+import { ReduxAction } from '../redux/create-actions';
 
 import * as Actions from './actions';
 
@@ -18,7 +18,7 @@ export class SessionState extends Record<{
   redirectTo: '',
 }) { }
 
-const sessionReducer = (state = new SessionState(), action: IReduxAction) => {
+const sessionReducer = (state = new SessionState(), action: ReduxAction) => {
   switch (action.type) {
     case Actions.setUser.type:
       return state.merge({
