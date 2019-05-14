@@ -2,6 +2,7 @@ import React, { ButtonHTMLAttributes } from 'react';
 
 import { Theme } from './styleguide/theme';
 import styled, { css } from '../components/styleguide';
+import { s0 } from './styleguide/spacing';
 
 import Spinner, {SpinnerProps} from '../components/spinner';
 import {Body} from '../components/styleguide/text';
@@ -161,7 +162,7 @@ const Button: React.SFC<Props> = (props) => {
   } = props;
 
   const InnerChild = children ? children : (
-    <Body>{props.text}</Body>
+    <Body marginBottom={s0}>{props.text}</Body>
   );
 
   return (

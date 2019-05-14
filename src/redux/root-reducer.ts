@@ -6,6 +6,7 @@ import { History } from 'history';
 import sessionReducer, { SessionState } from '../session/reducer';
 import globalEventReducer, { GlobalEventState } from '../components/global-event/reducer';
 import login, { LoginState } from '../login/reducer';
+import products, { ProductsState } from '../products/reducer';
 
 export interface RootState {
   router: RouterState;
@@ -13,6 +14,7 @@ export interface RootState {
   session: SessionState;
   globalEvent: GlobalEventState;
   login: LoginState;
+  products: ProductsState;
 }
 
 export default (history: History<any>) => combineReducers<RootState>({
@@ -21,4 +23,5 @@ export default (history: History<any>) => combineReducers<RootState>({
   session: sessionReducer,
   globalEvent: globalEventReducer,
   login,
+  products,
 });

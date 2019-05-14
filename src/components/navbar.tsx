@@ -46,22 +46,38 @@ const Navbar: React.SFC<Props> = (props) => {
 
   return (
     <NavbarContainer align="center" justify="space-between" paddingHorizontal={s4}>
-      <Link to={isLoggedIn ? '/overview' : '/'}>
+      <Link to="/">
         <Title marginBottom={s0} inverted emphasized>iKEA</Title>
       </Link>
-      {isLoggedIn && (
-        <Flex align="center">
-          <Link to={`/users/${userId}`}>
-            <Flex align="center" marginRight={s5}>
-              <Base marginRight={s2}>
-              <UserImage imgSrc={'userImg'} imgSize="32"/>
-              </Base>
-              <Body inverted>{'data.userById.username'}</Body>
-            </Flex>
-          </Link>
-          <PowerOffButton onClick={() => console.log('Implement Log out')} />
-        </Flex>
-      )}
+      
+      <Flex align="center">
+        {isLoggedIn ? (
+          <>
+            <Link to={`/users/${userId}`}>
+              <Flex align="center" marginRight={s5}>
+                <Base marginRight={s2}>
+                <UserImage imgSrc={'userImg'} imgSize="32"/>
+                </Base>
+                <Body inverted>{'data.userById.username'}</Body>
+              </Flex>
+            </Link>
+            <PowerOffButton onClick={() => console.log('Implement Log out')} />
+          </>
+        ) : (
+          <Flex>
+            <Link to={`login`}>
+              <Flex align="center" marginRight={s5}>
+                <Body marginBottom={s0} inverted>Login</Body>
+              </Flex>
+            </Link>
+            <Link to={`signup`}>
+              <Flex align="center">
+                <Body marginBottom={s0} inverted>Sign up</Body>
+              </Flex>
+            </Link>
+          </Flex>
+        )}
+      </Flex>
     </NavbarContainer>
   );
 };
