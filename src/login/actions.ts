@@ -3,11 +3,12 @@ import {createActions} from '../redux/create-actions';
 const domain = 'AUTH';
 
 export const {
+  action: login,
   success: loginSuccess,
   failed: loginFailed,
 } = createActions(
   `${domain}/LOGIN`,
-  () => null,
+  (formData) => ({formData}),
   (user) => ({user}),
 );
 

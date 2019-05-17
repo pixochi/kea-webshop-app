@@ -30,9 +30,8 @@ const GlobalStyle = createGlobalStyle`
     text-decoration: none;
   }
 
-  .leaflet-control-container {
-    position: absolute;
-    right: 50px;
+  #global-event {
+    z-index: 9999;
   }
 `;
 

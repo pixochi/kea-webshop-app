@@ -13,9 +13,11 @@ import { Base } from '../components/styleguide/layout';
 import { Body, Headline } from '../components/styleguide/text';
 
 import Form from './form';
+import * as Actions from './actions';
 
 interface StateProps {
   isLoggedIn: boolean;
+  isLoggingIn: boolean;
 }
 
 type Props = StateProps;
@@ -30,6 +32,7 @@ export class Login extends React.PureComponent<Props> {
   public render() {
     const {
       isLoggedIn,
+      isLoggingIn,
     } = this.props;
 
     if (isLoggedIn) {
@@ -40,7 +43,7 @@ export class Login extends React.PureComponent<Props> {
       <ScreenCenter>
         <Headline textAlign="center">iKEA</Headline>
         <Base marginTop={s4}>
-          <Form loading={false} onSubmit={this.handleLoginSubmit}/>
+          <Form loading={isLoggingIn} onSubmit={this.handleLoginSubmit}/>
         </Base>
         <Body marginTop={s4} textAlign="center">Don't have an account? <Link to="/signup">Sign up</Link></Body>
       </ScreenCenter>
@@ -48,12 +51,13 @@ export class Login extends React.PureComponent<Props> {
   }
 
   private handleLoginSubmit(values: any) {
-    console.log('Implement login');
+    Actions.login.dispatch(values);
   }
 }
 
 export default compose(
   connect<StateProps, {}, {}, RootState>((state) => ({
     isLoggedIn: getIsLoggedIn(state),
+    isLoggingIn: state.login.isLoggingIn,
   })),
 )(Login);

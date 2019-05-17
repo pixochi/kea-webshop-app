@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {compose} from 'redux';
+import {connect} from 'react-redux';
 
 import { Flex, Base } from './styleguide/layout';
 import { Title, Body } from './styleguide/text';
@@ -9,6 +10,8 @@ import UserImage from './user-image';
 
 import styled from './styleguide';
 import { s0, s2, s4, s5 } from './styleguide/spacing';
+import { RootState } from '../redux/root-reducer';
+import * as LoginActins from '../login/actions';
 
 export const NAVBAR_HEIGHT = 50;
 export const NAVBAR_HEIGHT_PX = `${NAVBAR_HEIGHT}px`;
@@ -17,7 +20,7 @@ const NavbarContainer = styled(Flex)`
   position: fixed;
   right: 0;
   left: 0;
-  z-index: 9998;
+  z-index: 100;
   height: ${NAVBAR_HEIGHT_PX};
   background: ${props => props.theme.primaryDark};
   box-shadow: 0 2px 4px ${props => props.theme.shadowStrong};
@@ -49,19 +52,11 @@ const Navbar: React.SFC<Props> = (props) => {
       <Link to="/">
         <Title marginBottom={s0} inverted emphasized>iKEA</Title>
       </Link>
-      
+
       <Flex align="center">
         {isLoggedIn ? (
           <>
-            <Link to={`/users/${userId}`}>
-              <Flex align="center" marginRight={s5}>
-                <Base marginRight={s2}>
-                <UserImage imgSrc={'userImg'} imgSize="32"/>
-                </Base>
-                <Body inverted>{'data.userById.username'}</Body>
-              </Flex>
-            </Link>
-            <PowerOffButton onClick={() => console.log('Implement Log out')} />
+            <PowerOffButton onClick={LoginActins.logOut.dispatch} />
           </>
         ) : (
           <Flex>
@@ -82,4 +77,8 @@ const Navbar: React.SFC<Props> = (props) => {
   );
 };
 
-export default compose<React.ComponentType>()(Navbar);
+export default compose<React.ComponentType>(
+  connect((state: RootState) => ({
+    isLoggedIn: Boolean(state.login.user),
+  })),
+)(Navbar);
