@@ -6,6 +6,7 @@ import './App.css';
 
 import Routes from './routes';
 import GlobalCSS from './components/global-css';
+import GlobalEvent from './components/global-event/global-event'
 
 import {store} from './redux/store';
 import theme from './components/styleguide/theme';
@@ -16,6 +17,7 @@ const App: React.FC = () => {
       <ThemeProvider theme={theme}>
         <>
           <GlobalCSS theme={theme} />
+          <GlobalEvent />
           <Routes />
         </>
       </ThemeProvider>
