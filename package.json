@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/chai": "^4.1.7",
     "@types/history": "^4.7.2",
     "@types/immutable": "^3.8.7",
     "@types/jest": "24.0.12",
+    "@types/mocha": "^5.2.6",
     "@types/node": "12.0.0",
     "@types/react": "16.8.16",
     "@types/react-dom": "16.8.4",
@@ -16,10 +18,12 @@
     "@types/reselect": "^2.2.0",
     "@types/styled-components": "^4.1.14",
     "axios": "^0.18.0",
+    "chai": "^4.2.0",
     "connected-react-router": "^6.4.0",
     "history": "^4.9.0",
     "immutable": "^4.0.0-rc.12",
     "js-joda": "^1.10.1",
+    "mocha": "^6.1.4",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^7.0.3",
@@ -37,7 +41,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "mocha tests/**/*.js",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
