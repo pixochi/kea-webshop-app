@@ -3,21 +3,21 @@ import axios from 'axios';
 export default class RestClient {
 
   public static async get(url: string, data?: any) {
-    return axios.get(`/${url}`, {
+    return axios.get(`api/${url}`, {
       data,
     });
   }
 
   public static post(url: string, data?: any) {
-    return axios.post(`/${url}`, {data});
+    return axios.post(`api/${url}`, data);
   }
 
   public static delete(url: string, data?: any) {
-    return axios.delete(`/${url}`, {data});
+    return axios.delete(`api/${url}`, {data});
   }
 
   public static update(url: string, data?: any) {
-    return axios.put(`/${url}`, {data});
+    return axios.put(`api/${url}`, {data});
   }
 
 }

@@ -13,6 +13,7 @@ import { Base } from '../components/styleguide/layout';
 import { Body, Headline } from '../components/styleguide/text';
 
 import Form, {SignUpFormData} from './form';
+import * as Actions from './actions';
 
 interface StateProps {
   isLoggedIn: boolean;
@@ -27,8 +28,7 @@ export const SignUp = (props: Props) => {
 
   const handleSubmit = (values: SignUpFormData) => {
     // const {passwordRepeat, ...newUser} = values;
-
-    console.log('Implement sign up', {values});
+    Actions.signUp.dispatch(values);
   };
 
   return (
