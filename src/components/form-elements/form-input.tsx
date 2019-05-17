@@ -1,15 +1,15 @@
 import React, { ChangeEvent } from 'react';
 import { WrappedFieldProps, change } from 'redux-form';
 
-import styled from '../../components/styleguide';
-import {store} from '../../redux/store';
+import styled from '../styleguide';
 import { s1 } from '../styleguide/spacing';
+import { store } from '../../redux/store';
 
-import {Body, Title} from '../../components/styleguide/text';
+import {Body, Title} from '../styleguide/text';
 
 import genericFormElement from './generic-form-element';
 
-export const StyledInput = styled.input`
+export const GenericInput = styled.input`
   border-radius: 7px;
   padding: 8px;
   outline: none;
@@ -17,6 +17,7 @@ export const StyledInput = styled.input`
   font-size: 14px;
   width: 100%;
   transition: 0.3s all;
+  height: 40px;
 
   &:focus {
     outline: none;
@@ -42,6 +43,7 @@ interface IFormInputProps {
   maxLength?: number;
   formName?: string;
   clearable?: boolean;
+  onChange?: any;
 }
 
 type Props = WrappedFieldProps & IFormInputProps;
@@ -75,7 +77,7 @@ export class FormInput extends React.Component<Props, {currentInputValue: string
 
     return (
       <InputContainer>
-        <StyledInput
+        <GenericInput
           {...rest}
           onChange={this.handleInputValueChange}
           value={this.state.currentInputValue}
@@ -103,9 +105,10 @@ export class FormInput extends React.Component<Props, {currentInputValue: string
   }
 
   private handleInputValueChange(event: ChangeEvent<HTMLInputElement>) {
+    const {value} = event.target;
     this.setState({
-      currentInputValue: event.target.value,
-    });
+      currentInputValue: value,
+    }, () => this.props.onChange(value));
   }
 }
 

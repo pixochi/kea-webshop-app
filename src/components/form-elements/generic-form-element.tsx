@@ -1,19 +1,37 @@
 import React from 'react';
 import { WrappedFieldProps } from 'redux-form';
 
-import styled from '../../components/styleguide';
+import styled, { css } from '../styleguide';
 import { s2 } from '../styleguide/spacing';
 
-import {Body} from '../../components/styleguide/text';
+import {Body} from '../styleguide/text';
 
 const IssueMessage = styled(Body)`
   color: ${props => props.theme.error};
 `;
 
-const genericFormElement = (WrappedComponent: React.ComponentType<any>) =>
-  class extends React.Component<WrappedFieldProps> {
+const WrappedComponentContainer = styled((props) => (
+  <div className={props.className}>
+    {props.children}
+  </div>
+))`
+  & input, & select, & textarea {
+    ${props => props.inputHasError && css`
+      border-color: ${props => props.theme.error};
+    `}
+  }
+`;
+
+interface OuterProps {
+  canValidateBeforeTouched?: boolean;
+  [x: string]: any;
+}
+
+const genericFormElement = (WrappedComponent: React.ComponentType<OuterProps> | any) =>
+  class extends React.Component<WrappedFieldProps & OuterProps> {
     public render() {
       const {
+        canValidateBeforeTouched,
         input,
         meta: { touched, error, warning },
         ...rest
@@ -23,11 +41,17 @@ const genericFormElement = (WrappedComponent: React.ComponentType<any>) =>
       issueMessageText = warning && warning;
       issueMessageText = error && error;
 
+      const shouldValidate = canValidateBeforeTouched || touched;
+      const shouldShowIssueMessage = shouldValidate && issueMessageText;
+
       return (
-        <>
-          <WrappedComponent {...input} {...rest} />
-          {touched && <IssueMessage paddingLeft={s2} marginTop={s2}>{issueMessageText}</IssueMessage>}
-        </>
+        <WrappedComponentContainer inputHasError={shouldShowIssueMessage}>
+          <WrappedComponent
+            {...input}
+            {...rest}
+          />
+          {shouldShowIssueMessage && <IssueMessage paddingLeft={s2} marginTop={s2}>{issueMessageText}</IssueMessage>}
+        </WrappedComponentContainer>
       );
     }
 };

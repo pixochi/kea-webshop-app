@@ -1,7 +1,7 @@
 import React from 'react';
 import { WrappedFieldProps } from 'redux-form';
 
-import styled from '../../components/styleguide';
+import styled from '../styleguide';
 
 import genericFormElement from './generic-form-element';
 
