@@ -1,20 +1,15 @@
 import React, { ButtonHTMLAttributes } from 'react';
+import { Link } from 'react-router-dom';
 
 import { Theme } from './styleguide/theme';
-import styled, { css } from '../components/styleguide';
+import styled, { css } from './styleguide';
 import { s0 } from './styleguide/spacing';
 
-import Spinner, {SpinnerProps} from '../components/spinner';
-import {Body} from '../components/styleguide/text';
+import Spinner from './spinner';
+import {Body} from './styleguide/text';
+import { LocationDescriptor } from 'history';
 
 type ButtonSize = 'big' | 'mini' | 'default';
-
-enum IButtonAppearance {
-  submit = 'submit',
-  warning = 'warning',
-  info = 'info',
-  neutral = 'neutral',
-}
 
 export const getBackgroundColor = (theme: Theme, appearance?: keyof typeof IButtonAppearance): string => {
   switch (appearance) {
@@ -45,6 +40,7 @@ export const getTextColor = (theme: Theme, appearance?: keyof typeof IButtonAppe
 
 export const Paddings = {
   mini: '8px 12px',
+  big: '16px 20px',
   default: '12px 16px',
 };
 
@@ -52,6 +48,8 @@ export const getPadding = (buttonSize?: ButtonSize): string => {
   switch (buttonSize) {
     case 'mini':
       return Paddings.mini;
+    case 'big':
+      return Paddings.big;
     case 'default':
     default:
       return Paddings.default;
@@ -78,7 +76,7 @@ export const getFontSize = (buttonSize?: ButtonSize): string => {
 
 export const SpinnerPositions = {
   mini: 'left: 43%; top: 20%;',
-  default: 'left: 50%; top: 20%;',
+  default: 'left: 39%; top: 27%;',
 };
 
 export const getSpinnerPosition = (buttonSize?: ButtonSize): string => {
@@ -91,12 +89,15 @@ export const getSpinnerPosition = (buttonSize?: ButtonSize): string => {
   }
 };
 
-export const StyledButton = styled.button<IButtonProps>`
-  background-color: ${props => getBackgroundColor(props.theme, props.appearance)};
+export const StyledButton = styled.button<ButtonProps>`
+  background-color: ${props => props.disabled ?
+    props.theme.inactive :
+    getBackgroundColor(props.theme, props.appearance)
+  };
+  cursor: ${props => props.disabled ? 'not-allowed' : 'pointer'};
   padding: ${props => getPadding(props.buttonSize)};
   border-radius: 7px;
   border: none;
-  cursor: pointer;
   width: ${props => props.fullWidth ? '100%' : 'auto'};
   transition: all .2s;
   box-shadow: 0 2px 2px ${props => props.theme.shadow};
@@ -125,51 +126,81 @@ export const StyledButton = styled.button<IButtonProps>`
   }
 
   & > * {
-    opacity: ${props => props.loading ? 0 : 1};
+    opacity: ${props => props.isLoading ? 0 : 1};
   }
 
   & > ${Body} {
     color: ${props => getTextColor(props.theme, props.appearance)};
     font-size:${props => getFontSize(props.buttonSize)};
+    margin-bottom: 0;
   }
 `;
 
-const AnyStyledSpinner = styled(Spinner).attrs<IButtonProps & SpinnerProps>({
+export const StyledSpinner: any = styled(Spinner).attrs<ButtonProps>({
   color: (props: any) => props.theme.invertedText,
 })`
   opacity: 1 !important;
   position: absolute;
   z-index: 2;
   ${props => getSpinnerPosition((props as any).buttonSize)};
-` as any;
+`;
 
-interface IButtonProps {
+enum IButtonAppearance {
+  submit = 'submit',
+  warning = 'warning',
+  info = 'info',
+  neutral = 'neutral',
+}
+
+export interface ButtonProps {
   text?: string;
   appearance?: keyof typeof IButtonAppearance;
   fullWidth?: boolean;
-  loading?: boolean;
+  isLoading?: boolean;
   alignWith?: 'left' | 'right' | 'center';
   buttonSize?: ButtonSize;
+  linkTo?: LocationDescriptor;
+  isDisabled?: boolean;
 }
 
-type Props = IButtonProps & Partial<ButtonHTMLAttributes<any>>;
+type Props = ButtonProps & Partial<ButtonHTMLAttributes<any>>;
 
-const Button: React.SFC<Props> = (props) => {
+const Button: React.SFC<any> = (props) => {
 
   const {
-    loading,
+    isLoading,
+    linkTo,
     children,
+    isDisabled,
   } = props;
+
+  let Wrapper;
+  let wrapperProps;
+
+  if (linkTo) {
+    Wrapper = Link;
+    wrapperProps = {
+      to: String(linkTo),
+      onClick: isDisabled ? (e: Event) => e.preventDefault() : props.onClick,
+    };
+  }
+  else {
+    Wrapper = React.Fragment;
+    wrapperProps = {} as any;
+  }
+
 
   const InnerChild = children ? children : (
     <Body marginBottom={s0}>{props.text}</Body>
   );
 
   return (
-    <StyledButton {...props} disabled={loading}>
-      {InnerChild}
-      {loading && <AnyStyledSpinner buttonSize={props.buttonSize} />}
-    </StyledButton>
+    <Wrapper {...wrapperProps}>
+      <StyledButton {...props} disabled={isLoading || isDisabled}>
+        {InnerChild}
+        {isLoading && <StyledSpinner buttonSize={props.buttonSize} />}
+      </StyledButton>
+    </Wrapper>
   );
 };
 

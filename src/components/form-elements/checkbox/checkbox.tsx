@@ -34,7 +34,7 @@ export const VisualCheckbox = styled.div<{checked: boolean}>`
       display: block;
       width: 16px;
       height: 16px;
-      background: ${props => props.theme.info};
+      background: ${props => props.theme.primaryDark};
       border-radius: 50%;
       margin: 0 auto;
       margin-top: 5px;
@@ -76,11 +76,17 @@ const Checkbox: React.SFC<ICheckboxProps> = (props) => {
     ...rest
   } = props;
 
+  // redux-form accepts prop `defaultChecked` for checkboxes
+  // but it sets the passed `value` prop to 'FALSE' initially
+  // so the value needs to be checked for correct behavior
+  // of `VisualCheckbox` component
+  const isChecked = value && value !== 'FALSE';
+
   return (
     <Flex align="center">
       <CheckboxContainer>
         <ActualCheckbox name={name} id={id} {...rest} />
-        <VisualCheckbox checked={value} />
+        <VisualCheckbox checked={isChecked} />
       </CheckboxContainer>
       {label && (
         <Lable marginLeft={s2} clickable as="label" htmlFor={id}>{label}</Lable>

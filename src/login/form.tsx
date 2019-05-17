@@ -6,9 +6,9 @@ import Button from '../components/button';
 import FormField from '../components/form-elements/form-field';
 import FormInput from '../components/form-elements/form-input';
 
-import { FormProps } from '../components/form-elements/typings';
+import { IFormProps } from '../components/form-elements/typings';
 
-type Props = InjectedFormProps<{implementThis: any}> & FormProps;
+type Props = InjectedFormProps<{implementThis: any}> & IFormProps;
 
 export const LoginForm: React.SFC<Props> = props => {
   const { handleSubmit, loading } = props;
@@ -22,7 +22,7 @@ export const LoginForm: React.SFC<Props> = props => {
   );
 };
 
-export default compose<React.ComponentType<FormProps>>(
+export default compose<React.ComponentType<IFormProps>>(
   reduxForm({
     form: 'LOGIN_FORM',
   }),
