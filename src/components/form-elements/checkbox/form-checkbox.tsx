@@ -13,4 +13,4 @@ export const FormCheckbox: React.SFC<WrappedFieldProps & ICheckboxProps> = (prop
     );
 };
 
-export default genericFormElement(FormCheckbox);
+export default genericFormElement((FormCheckbox as any));

@@ -11,6 +11,7 @@ import Navbar, { NAVBAR_HEIGHT_PX } from './components/navbar';
 import Login from './login/login';
 import SignUp from './sign-up/sign-up';
 import Products from './products/products';
+import Checkout from './checkout/checkout';
 
 const RoutesContainer = styled.div`
   padding-top: ${NAVBAR_HEIGHT_PX};
@@ -25,6 +26,7 @@ const Routes: React.SFC = () => (
           <Route exact path="/" component={Products}/>
           <Route path="/login" component={Login}/>
           <Route path="/signup" component={SignUp}/>
+          <Route path="/checkout" component={Checkout}/>
           <PrivateRoute path="/users/:userId" component={Login} />
         </Switch>
       </RoutesContainer>

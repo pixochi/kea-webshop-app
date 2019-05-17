@@ -1,7 +1,7 @@
 import React from 'react';
-import { WrappedFieldProps } from 'redux-form';
+import { WrappedFieldProps, WrappedFieldInputProps } from 'redux-form';
 
-import styled from '../../components/styleguide';
+import styled from '../styleguide';
 
 import genericFormElement from './generic-form-element';
 
@@ -13,6 +13,7 @@ export const StyledSelect = styled.select`
   font-size: 14px;
   width: 100%;
   transition: 0.3s all;
+  height: 40px;
 
   &:focus {
     outline: none;
@@ -21,18 +22,31 @@ export const StyledSelect = styled.select`
   }
 `;
 
-type Props = WrappedFieldProps & {
+type Props = WrappedFieldProps & WrappedFieldInputProps & {
   options: Array<{
     value: string;
     label: string;
-  }>
+  }>,
+  defaultValue: any;
+  canValidateBeforeTouched: boolean;
 };
 
-export const FormSelect: React.SFC<Props> = (props) => {
+export const FormSelectBase: React.SFC<Props> = (props) => {
+
+  const {
+    value,
+    defaultValue,
+    ...rest
+  } = props;
+
+  const selectedValue = value || defaultValue;
+
   return (
     <StyledSelect
-      {...props}
+      {...rest}
+      value={selectedValue}
     >
+    <option value="">Select an option</option>
     {props.options.map(option => (
       <option key={option.value} value={option.value}>{option.label}</option>
     ))}
@@ -40,4 +54,4 @@ export const FormSelect: React.SFC<Props> = (props) => {
   );
 };
 
-export default genericFormElement(FormSelect);
+export default genericFormElement(FormSelectBase);
