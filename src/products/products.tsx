@@ -59,7 +59,7 @@ class Products extends React.PureComponent<Props> {
     return (
       <Flex wrap="wrap" direction="row" justify="space-around" marginBottom={s8}>
         {products.map(product => (
-          <ProductContainer direction="column">
+          <ProductContainer key={product.name} direction="column">
             <Title>{product.name}</Title>
             <img height="150" src={product.image} />
             <Body disabled>{product.description}</Body>
