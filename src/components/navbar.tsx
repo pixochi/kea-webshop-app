@@ -9,7 +9,7 @@ import PowerOff from './icons/power-off';
 import UserImage from './user-image';
 
 import styled from './styleguide';
-import { s0, s2, s4, s5 } from './styleguide/spacing';
+import { s0, s1, s4, s5 } from './styleguide/spacing';
 import { RootState } from '../redux/root-reducer';
 import * as LoginActins from '../login/actions';
 
@@ -32,10 +32,18 @@ const PowerOffButton = styled(PowerOff).attrs({
   cursor: pointer;
 `;
 
+const CartItemsCount = styled(Body)`
+  padding: 2px 8px;
+  border-radius: 50%;
+  background: white;
+  color: ${props => props.theme.submit};
+`;
+
 // TODO: implement login
 interface StateProps {
   isLoggedIn: boolean;
   userId: string;
+  cartItemsCount: number;
 }
 
 type Props = StateProps;
@@ -44,7 +52,7 @@ const Navbar: React.SFC<Props> = (props) => {
 
   const {
     isLoggedIn,
-    userId,
+    cartItemsCount,
   } = props;
 
   return (
@@ -76,8 +84,14 @@ const Navbar: React.SFC<Props> = (props) => {
               </Flex>
             </Link>
             <Link to={`signup`}>
-              <Flex align="center">
+              <Flex align="center" marginRight={s5}>
                 <Body marginBottom={s0} inverted>Sign up</Body>
+              </Flex>
+            </Link>
+            <Link to={`checkout`}>
+              <Flex align="center">
+                <Body marginBottom={s0} marginRight={s1} inverted>Cart</Body>
+                <CartItemsCount marginBottom={s0} emphasized>{cartItemsCount}</CartItemsCount>
               </Flex>
             </Link>
           </Flex>
@@ -90,5 +104,6 @@ const Navbar: React.SFC<Props> = (props) => {
 export default compose<React.ComponentType>(
   connect((state: RootState) => ({
     isLoggedIn: Boolean(state.login.user),
+    cartItemsCount: state.cart.items.reduce<number>((acc, item) => acc + item.amount, 0),
   })),
 )(Navbar);
