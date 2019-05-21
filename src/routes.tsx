@@ -12,6 +12,8 @@ import Login from './login/login';
 import SignUp from './sign-up/sign-up';
 import Products from './products/products';
 import Checkout from './checkout/checkout';
+import About from './about/about';
+import Contact from './contact/contact';
 
 const RoutesContainer = styled.div`
   padding-top: ${NAVBAR_HEIGHT_PX};
@@ -27,6 +29,8 @@ const Routes: React.SFC = () => (
           <Route path="/login" component={Login}/>
           <Route path="/signup" component={SignUp}/>
           <Route path="/checkout" component={Checkout}/>
+          <Route path="/about" component={About}/>
+          <Route path="/contact" component={Contact}/>
           <PrivateRoute path="/users/:userId" component={Login} />
         </Switch>
       </RoutesContainer>
