@@ -7,8 +7,8 @@ const Container = styled.div`
   top: 20%;
   left: 50%;
   transform: translateX(-50%);
-  width: 50%;
-  max-width: 380px;
+  width: 80%;
+  max-width: 780px;
   min-width: 250px;
 `;
 

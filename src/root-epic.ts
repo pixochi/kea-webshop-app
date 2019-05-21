@@ -5,6 +5,7 @@ import productsEpic from './products/epics';
 import signUpEpic from './sign-up/epics';
 import loginEpic from './login/epics';
 import sessionEpic from './session/epics';
+import cartEpic from './cart/epics';
 
 export const rootEpic = combineEpics(
   globalEventEpic,
@@ -12,6 +13,7 @@ export const rootEpic = combineEpics(
   signUpEpic,
   loginEpic,
   sessionEpic,
+  cartEpic,
 );
 
 export default rootEpic;

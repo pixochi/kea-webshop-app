@@ -11,7 +11,7 @@ export const StyledContainer = styled(Flex)<IContainer>`
   padding-bottom:  ${props => props.noPadding ? 0 : `16px`};
   height: ${props => props.height ? `${props.height}px` : 'auto'};
   border-radius: ${props => props.notRounded ? 0 : '7px'};
-  margin: ${props => props.margined ? '24px' : 0};
+  // margin: ${props => props.margined ? '24px' : 0};
 
   & > * {
     width: 100%;

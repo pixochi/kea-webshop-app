@@ -6,6 +6,7 @@ import { LocalDate } from 'js-joda';
 import Button from '../components/button';
 import FormField from '../components/form-elements/form-field';
 import FormInput from '../components/form-elements/form-input';
+import FormCheckbox from '../components/form-elements/checkbox/form-checkbox';
 import Form from '../components/form-elements/form';
 
 import { email, maxLength, minLength } from '../helpers/form-validation';
@@ -77,6 +78,13 @@ export const CheckoutForm: React.SFC<Props> = props => {
         type="date"
         max={LocalDate.now().toString()}
         required
+      />
+      <FormField
+        name="isStudent"
+        component={FormCheckbox}
+        labelText="I am a student"
+        defaultChecked={false}
+        isHorizontal
       />
       <FormField
         name="cardExpiration"

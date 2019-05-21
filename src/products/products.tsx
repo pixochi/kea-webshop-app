@@ -5,10 +5,13 @@ import { connect } from 'react-redux';
 import Spinner from '../components/spinner';
 import { Flex } from '../components/styleguide/layout';
 import { Title, Body } from '../components/styleguide/text';
+import Button from '../components/button';
 
 import { RootState } from '../redux/root-reducer';
 import styled from '../components/styleguide';
 import { s8 } from '../components/styleguide/spacing';
+
+import * as CartActions from '../cart/actions';
 
 import * as Actions from './actions';
 
@@ -20,6 +23,12 @@ const ProductContainer = styled(Flex)`
   margin-top: 24px;
   height: 400px;
   max-height: 400px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+`;
+
+const ProductDescription = styled(Body)`
+  height: 200px;
   text-overflow: ellipsis;
   overflow: hidden;
 `;
@@ -59,10 +68,15 @@ class Products extends React.PureComponent<Props> {
     return (
       <Flex wrap="wrap" direction="row" justify="space-around" marginBottom={s8}>
         {products.map(product => (
-          <ProductContainer direction="column">
+          <ProductContainer direction="column" key={product.id}>
             <Title>{product.name}</Title>
             <img height="150" src={product.image} />
-            <Body disabled>{product.description}</Body>
+            <ProductDescription disabled>{product.description}</ProductDescription>
+            <Button
+              text="Add to cart"
+              appearance="submit"
+              onClick={() => CartActions.addToCart.dispatch(product)}
+            />
           </ProductContainer>
         ))}
       </Flex>
