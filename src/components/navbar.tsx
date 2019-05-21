@@ -91,7 +91,9 @@ const Navbar: React.SFC<Props> = (props) => {
             <Link to={`checkout`}>
               <Flex align="center">
                 <Body marginBottom={s0} marginRight={s1} inverted>Cart</Body>
-                <CartItemsCount marginBottom={s0} emphasized>{cartItemsCount}</CartItemsCount>
+                {Boolean(cartItemsCount) && (
+                  <CartItemsCount marginBottom={s0} emphasized>{cartItemsCount}</CartItemsCount>
+                )}
               </Flex>
             </Link>
           </Flex>
