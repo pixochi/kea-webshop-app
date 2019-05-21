@@ -63,9 +63,9 @@ const Navbar: React.SFC<Props> = (props) => {
 
       <Flex align="center">
         {isLoggedIn ? (
-          <>
+          <Flex marginRight={s5}>
             <PowerOffButton onClick={LoginActins.logOut.dispatch} />
-          </>
+          </Flex>
         ) : (
           <Flex>
             <Link to={`about`}>
@@ -88,16 +88,16 @@ const Navbar: React.SFC<Props> = (props) => {
                 <Body marginBottom={s0} inverted>Sign up</Body>
               </Flex>
             </Link>
-            <Link to={`checkout`}>
-              <Flex align="center">
-                <Body marginBottom={s0} marginRight={s1} inverted>Cart</Body>
-                {Boolean(cartItemsCount) && (
-                  <CartItemsCount marginBottom={s0} emphasized>{cartItemsCount}</CartItemsCount>
-                )}
-              </Flex>
-            </Link>
           </Flex>
         )}
+        <Link to={`checkout`}>
+          <Flex align="center">
+            <Body marginBottom={s0} marginRight={s1} inverted>Cart</Body>
+            {Boolean(cartItemsCount) && (
+              <CartItemsCount marginBottom={s0} emphasized>{cartItemsCount}</CartItemsCount>
+            )}
+          </Flex>
+        </Link>
       </Flex>
     </NavbarContainer>
   );
