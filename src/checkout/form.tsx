@@ -64,6 +64,7 @@ export const CheckoutForm: React.SFC<Props> = props => {
         name="phoneNumber"
         component={FormInput}
         labelText="Phone number"
+        type="number"
       />
       <FormField
         name="email"
