@@ -60,6 +60,16 @@ const Navbar: React.SFC<Props> = (props) => {
           </>
         ) : (
           <Flex>
+            <Link to={`about`}>
+              <Flex align="center" marginRight={s5}>
+                <Body marginBottom={s0} inverted>About</Body>
+              </Flex>
+            </Link>
+            <Link to={`contact`}>
+              <Flex align="center" marginRight={s5}>
+                <Body marginBottom={s0} inverted>Contact</Body>
+              </Flex>
+            </Link>
             <Link to={`login`}>
               <Flex align="center" marginRight={s5}>
                 <Body marginBottom={s0} inverted>Login</Body>
