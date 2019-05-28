@@ -11,9 +11,6 @@ import Form from '../components/form-elements/form';
 
 import { email, maxLength, minLength } from '../helpers/form-validation';
 
-// const minLength3 = minLength(3);
-// const maxLength24 = maxLength(24);
-
 export interface CheckoutFormData {
   email: string;
   password: string;
@@ -78,6 +75,14 @@ export const CheckoutForm: React.SFC<Props> = props => {
         labelText="Birthdate"
         type="date"
         max={LocalDate.now().toString()}
+        required
+      />
+      <FormField
+        name="deliveryDate"
+        component={FormInput}
+        labelText="Delivery date"
+        type="date"
+        min={LocalDate.now().toString()}
         required
       />
       <FormField
