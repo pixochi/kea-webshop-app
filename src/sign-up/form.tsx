@@ -8,7 +8,7 @@ import FormInput from '../components/form-elements/form-input';
 
 import { email, maxLength, minLength } from '../helpers/form-validation';
 
-// const minLength3 = minLength(3);
+const minLength8 = minLength(8);
 // const maxLength24 = maxLength(24);
 
 export interface SignUpFormData {
@@ -32,7 +32,7 @@ export const SignUpForm: React.SFC<Props> = props => {
           component={FormInput}
           placeholder="Email address"
         />
-        <FormField required name="password" component={FormInput} type="password" placeholder="Password" />
+        <FormField required name="password" component={FormInput} type="password" placeholder="Password" validate={minLength8}/>
         <FormField required name="passwordRepeat" component={FormInput} type="password" placeholder="Repeat password" />
         <Button text="Sign up" type="submit" appearance="submit" fullWidth />
     </Form>

@@ -33,8 +33,8 @@ const getElderlyPriceCoefficient = (isElderly: boolean) => {
   return isElderly ? 0.89 : 1;
 };
 
-const getNextDayDeliveryFee = (isNextDayDelivery: boolean) => {
-  return isNextDayDelivery ? 20 : 0;
+const getNextDayPickupFee = (isNextDayPickup: boolean) => {
+  return isNextDayPickup ? 20 : 0;
 };
 
 const getTotalPriceCoefficient = (totalPriceWithoutDiscount: number) => {
@@ -60,7 +60,7 @@ interface StateProps {
   city: string;
   isStudent: boolean;
   isElderly: boolean;
-  isNextDayDelivery: boolean;
+  isNextDayPickup: boolean;
 }
 
 type Props = StateProps;
@@ -72,7 +72,7 @@ const Checkout: React.SFC<Props> = (props) => {
     city,
     isStudent,
     isElderly,
-    isNextDayDelivery,
+    isNextDayPickup,
   } = props;
 
   const baseTotalPrice = cartItems.reduce((acc, item) => acc + item.amount * item.product.price, 0);
@@ -89,8 +89,8 @@ const Checkout: React.SFC<Props> = (props) => {
   const elderlyPriceCoefficient = getElderlyPriceCoefficient(isElderly);
   const totalPriceWithAllDiscounts = Math.round(totalPriceWithHighPriceDiscount * elderlyPriceCoefficient * 100) / 100;
 
-  const nextDayDeliveryFee = getNextDayDeliveryFee(isNextDayDelivery);
-  const totalPrice = totalPriceWithAllDiscounts + nextDayDeliveryFee;
+  const nextDayPickupFee = getNextDayPickupFee(isNextDayPickup);
+  const totalPrice = totalPriceWithAllDiscounts + nextDayPickupFee;
 
   return (
     <ScreenCenter>
@@ -149,11 +149,11 @@ const Checkout: React.SFC<Props> = (props) => {
                 <StyledBody emphasized>{totalPriceWithAllDiscounts}</StyledBody>
               </Flex>
             )}
-            {nextDayDeliveryFee !== 0 && (
+            {nextDayPickupFee !== 0 && (
               <Flex justify="space-between">
                 <StyledBody emphasized> </StyledBody>
                 <StyledBody emphasized> </StyledBody>
-                <StyledBody emphasized>With next day delivery fee</StyledBody>
+                <StyledBody emphasized>With next day pickup fee</StyledBody>
                 <StyledBody emphasized>{totalPrice}</StyledBody>
               </Flex>
             )}
@@ -185,16 +185,16 @@ const checkIfElderly = (state: RootState) => {
   return yearsDiff >= 60;
 };
 
-const checkIfNextDayDelivery = (state: RootState) => {
-  const deliveryDate = checkoutFormSelector(state, 'deliveryDate');
+const checkIfNextDayPickup = (state: RootState) => {
+  const pickupDate = checkoutFormSelector(state, 'pickupDate');
 
-  if (!deliveryDate) {
+  if (!pickupDate) {
     return false;
   }
 
-  const deliveryDateMoment = LocalDate.parse(deliveryDate);
+  const pickupDateMoment = LocalDate.parse(pickupDate);
   const today = LocalDate.now();
-  const daysDiff = deliveryDateMoment.dayOfYear() - today.dayOfYear();
+  const daysDiff = pickupDateMoment.dayOfYear() - today.dayOfYear();
 
   return daysDiff <= 1;
 
@@ -206,6 +206,6 @@ export default compose<React.ComponentType<{}>>(
     city: checkoutFormSelector(state, 'town'),
     isStudent: checkoutFormSelector(state, 'isStudent'),
     isElderly: checkIfElderly(state),
-    isNextDayDelivery: checkIfNextDayDelivery(state),
+    isNextDayPickup: checkIfNextDayPickup(state),
   })),
 )(Checkout);

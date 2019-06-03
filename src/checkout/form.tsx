@@ -75,14 +75,16 @@ export const CheckoutForm: React.SFC<Props> = props => {
         labelText="Birthdate"
         type="date"
         max={LocalDate.now().toString()}
+        min={LocalDate.now().minusYears(125).toString()}
         required
       />
       <FormField
-        name="deliveryDate"
+        name="pickupDate"
         component={FormInput}
-        labelText="Delivery date"
+        labelText="Pick up date"
         type="date"
-        min={LocalDate.now().toString()}
+        min={LocalDate.now().plusDays(1).toString()}
+        max={LocalDate.now().plusDays(14).toString()}
         required
       />
       <FormField
