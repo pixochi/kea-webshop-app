@@ -15,7 +15,7 @@
     "@types/redux-form": "^8.1.1",
     "@types/reselect": "^2.2.0",
     "@types/styled-components": "^4.1.14",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "connected-react-router": "^6.4.0",
     "history": "^4.9.0",
     "immutable": "^4.0.0-rc.12",
